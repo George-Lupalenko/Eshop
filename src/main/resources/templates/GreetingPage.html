@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <a>Hello its eshop</a>
+    <ul>
+        <li th:each="cat : ${categories}">
+            <a th:href="@{/category/{name}(name=${cat.name})}" th:text="${cat.name}"></a>
+        </li>
+    </ul>
+    <div th:each="item : ${items}">
+        <img th:src="${item.imageUrl}" alt="Item image" />
+        <h3 th:text="${item.title}"></h3>
+        <p th:text="${item.description}"></p>
+        <p th:text="${item.price} + ' $'"></p>
+    </div>
+<body>
+
+</body>
+</html>

@@ -2,11 +2,15 @@ package ua.mem4ik.eshop.src.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
-public class Items {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,4 +22,10 @@ public class Items {
     @NotBlank(message = "Add 1 image as well")
     private String image;
 
+    private Double price;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
+
+    private Category category;
 }
