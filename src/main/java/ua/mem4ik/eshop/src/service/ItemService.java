@@ -15,7 +15,7 @@ public class ItemService {
     @Autowired
     private final ItemRepository itemRepository;
 
-    public Item save(Item item) {
+    public Item addItem(Item item) {
         return itemRepository.save(item);
     }
 
@@ -25,6 +25,10 @@ public class ItemService {
 
     public List<Item> findByCategory(String name) {
         return itemRepository.findByCategory(Category.valueOf(name));
+    }
+
+    public Item findById(Long id) {
+        return itemRepository.findById(id).orElse(null);
     }
 }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${item.title}">Товар</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .item-container { max-width: 800px; margin: 0 auto; }
+        .item-images img { max-width: 200px; margin: 5px; border-radius: 8px; }
+        .item-title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .item-description { margin-top: 15px; font-size: 16px; }
+        .item-price { color: green; font-size: 18px; font-weight: bold; margin-top: 10px; }
+        .back-link { display: block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="item-container">
+    <div class="item-title" th:text="${item.title}">Название товара</div>
+
+    <div class="item-images">
+        <img th:src="${item.image}" alt="Фото товара">
+        <!-- Если будет несколько картинок, можно сделать цикл:
+        <div th:each="img : ${item.images}">
+            <img th:src="${img}" alt="Фото">
+        </div>
+        -->
+    </div>
+
+    <div class="item-description" th:text="${item.description}">
+        Здесь будет описание товара.
+    </div>
+
+    <div class="item-price">
+        Цена: <span th:text="${item.price}">0.00</span> $
+    </div>
+
+    <a href="/" class="back-link">⬅ Вернуться на главную</a>
+</div>
+</body>
+</html>

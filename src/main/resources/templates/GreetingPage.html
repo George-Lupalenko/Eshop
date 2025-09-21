@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Eshop</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        header { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .item { border: 1px solid #ccc; padding: 10px; margin: 5px 0; }
+        .btn { display: inline-block; padding: 10px 15px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
 </head>
-    <a>Hello its eshop</a>
-    <ul>
-        <li th:each="cat : ${categories}">
-            <a th:href="@{/category/{name}(name=${cat.name})}" th:text="${cat.name}"></a>
-        </li>
-    </ul>
-    <div th:each="item : ${items}">
-        <img th:src="${item.imageUrl}" alt="Item image" />
-        <h3 th:text="${item.title}"></h3>
-        <p th:text="${item.description}"></p>
-        <p th:text="${item.price} + ' $'"></p>
-    </div>
 <body>
+<header>Eshop</header>
 
+<div>
+    <h2>Товары</h2>
+    <div th:if="${#lists.isEmpty(items)}">
+        <p>Товаров пока нет.</p>
+    </div>
+    <div th:each="item : ${items}" class="item">
+        <p><b th:text="${item.title}">Название</b></p>
+        <p th:text="${item.price}">Цена</p>
+        <p th:text="${item.category}">Категория</p>
+        <a th:href="@{'/item/' + ${item.id}}">View details</a>
+    </div>
+</div>
+
+<a class="btn" href="/create-item">Создать товар</a>
 </body>
 </html>

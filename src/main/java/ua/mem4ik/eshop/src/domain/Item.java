@@ -10,22 +10,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "Items")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "Title can't be empty")
-    private String title;
+    private String title = "No Title";
     @NotBlank(message = "Enter description or we will set a default one")
-    private String description;
+    private String description = "No Description";
     @NotBlank(message = "Add 1 image as well")
-    private String image;
+    private String image = "No Image";
 
     private Double price;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User author;
+    private User author = null;
 
-    private Category category;
+    private Category category = Category.DIFFERENT;
 }
