@@ -4,27 +4,36 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.mem4ik.eshop.src.domain.enums.OrderStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "orders")
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "items_id")
-    private Item items;
+    @JoinColumn(name = "item_id")
+    private Item item;
 
-    @OneToOne
-    private User customer;
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
 
-    private String status;
-    private String comment;
-    private Date date;
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User seller;
+
+    private int quantity;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.CREATED;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -3,7 +3,7 @@ package ua.mem4ik.eshop.src.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.mem4ik.eshop.src.domain.Category;
+import ua.mem4ik.eshop.src.domain.enums.Category;
 import ua.mem4ik.eshop.src.domain.Item;
 import ua.mem4ik.eshop.src.repository.ItemRepository;
 

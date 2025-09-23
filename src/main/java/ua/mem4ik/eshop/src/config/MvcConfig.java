@@ -18,13 +18,14 @@ public class MvcConfig implements WebMvcConfigurer {
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
     }
+
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**")
+        registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:///" +uploadPath + "/");
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");

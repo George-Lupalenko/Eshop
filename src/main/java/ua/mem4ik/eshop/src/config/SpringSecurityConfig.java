@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import ua.mem4ik.eshop.src.service.UserService;
 
 @Configuration
@@ -25,6 +26,7 @@ import ua.mem4ik.eshop.src.service.UserService;
             this.passwordEncoder = passwordEncoder;
         }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -32,6 +34,7 @@ import ua.mem4ik.eshop.src.service.UserService;
 
                 // Настройка авторизации
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/**").permitAll()
