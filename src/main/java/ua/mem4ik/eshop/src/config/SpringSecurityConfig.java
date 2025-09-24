@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import ua.mem4ik.eshop.src.service.UserService;
 
 @Configuration
@@ -31,26 +29,27 @@ import ua.mem4ik.eshop.src.service.UserService;
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-
-                // Настройка авторизации
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/static/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/static/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/registration", "/auth/activate/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-
-                // Форма логина (можно потом заменить на JWT)
-                .formLogin(withDefaults -> {})
-
-                // Логаут
-                .logout(withDefaults -> {});
+                .formLogin(form -> form
+                        .loginPage("/auth/login")     // своя страница логина
+                        .permitAll()
+                        .defaultSuccessUrl("/", true) // куда перенаправлять после входа
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/auth/login?logout")
+                        .permitAll()
+                );
 
         return http.build();
     }
 
-    // AuthenticationManager для UserDetailsService
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

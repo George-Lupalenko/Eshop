@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
     User findByEmail(@Email(message = "Email is not correct") @NotBlank(message = "Email can't be empty") String email);
+
+    User findByActivationCode(String code);
 }

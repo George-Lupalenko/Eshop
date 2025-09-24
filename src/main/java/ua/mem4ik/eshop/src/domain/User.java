@@ -28,11 +28,13 @@ public class User implements UserDetails {
     private String username;
     @NotBlank(message = "Enter password")
     private String password;
+    private String passwordConfirm;
     @Email(message = "Email is not correct")
     @NotBlank(message = "Email can't be empty")
     private String email;
     @OneToMany
     private Set<Item> items;
+    private String activationCode;
     @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name= "user_id"))
     @Enumerated(EnumType.STRING)
@@ -65,4 +67,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return UserDetails.super.isEnabled();
     }
+
 }

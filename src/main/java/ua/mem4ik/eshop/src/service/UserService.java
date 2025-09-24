@@ -14,10 +14,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    public void save(User user) {
+    public boolean saveUser(User user) {
         if(user.getUsername() != null && !user.getUsername().equals(userRepository.findByUsername(user.getUsername()).getUsername())) {
             userRepository.save(user);
+            return true;
         }
+        return false;
     }
     public void delete(User user) {
         userRepository.delete(user);
@@ -33,5 +35,19 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
+    }
+
+    public boolean activateUser(String code) {
+        User user = userRepository.findByActivationCode(code);
+
+        if (user == null) {
+            return false;
+        }
+
+        user.setActivationCode(null);
+
+        userRepository.save(user);
+
+        return true;
     }
 }
