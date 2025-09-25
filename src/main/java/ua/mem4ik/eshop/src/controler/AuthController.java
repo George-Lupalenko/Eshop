@@ -34,24 +34,31 @@ public class AuthController {
         }
 
         @PostMapping("/registration")
-        public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
-            if (user.getPassword() != null && !user.getPassword().equals(user.getPasswordConfirm())) {
-                model.addAttribute("PasswordError", "Passwords do not match");
+        public String addUser(@Valid User user,
+                              BindingResult bindingResult,
+                              Model model) {
+
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                bindingResult.rejectValue("password", "error.user", "You should enter password");
             }
-            if (user.getPassword() != null && user.getPassword().isEmpty()) {
-                model.addAttribute("PasswordError", "You should enter password");
+
+            if (user.getPassword() != null &&
+                    !user.getPassword().equals(user.getPasswordConfirm())) {
+                bindingResult.rejectValue("passwordConfirm", "error.user", "Passwords do not match");
             }
+
             if (bindingResult.hasErrors()) {
                 Map<String, String> errors = getErrors(bindingResult);
                 model.mergeAttributes(errors);
                 return "registration";
             }
+
             if (!userService.saveUser(user)) {
                 model.addAttribute("usernameError", "User exist!");
                 return "registration";
             }
 
-            return "redirect:/auth/login"; // поправил редирект
+            return "redirect:/auth/login";
         }
 
         @GetMapping("/activate/{code}")

@@ -8,7 +8,7 @@
 <body>
 <h2>Регистрация</h2>
 
-<form th:action="@{/registration}" th:object="${user}" method="post">
+<form th:action="@{/auth/registration}" th:object="${user}" method="post">
     <div>
         <label for="username">Имя пользователя:</label>
         <input type="text" id="username" th:field="*{username}" required>
@@ -28,8 +28,8 @@
         <label for="password">Пароль:</label>
         <input type="password" id="password" th:field="*{password}" required>
         <div th:if="${PasswordError}" th:text="${PasswordError}" style="color:red"></div>
-        <div th:if="${#fields.hasErrors('password')}"
-             th:errors="*{password}" style="color:red"></div>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red"></div>
+        <div th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" style="color:red"></div>
     </div>
 
     <div>
