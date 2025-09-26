@@ -16,14 +16,23 @@ public class SpringSecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/static/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/auth/login", "/auth/registration", "/auth/activate/**").permitAll()
-                        .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        // страница входа и регистрация доступны всем
+                        .requestMatchers("/auth/**").permitAll()
+
+                        // просмотр товаров доступен всем (и гостям тоже)
+                        .requestMatchers("/products", "/products/**" , "/").permitAll()
+
+                        // создание/редактирование товаров — только SELLER и ADMIN
+                        .requestMatchers("/products/add", "/products/edit/**", "/products/delete/**")
+                        .hasAnyRole("SELLER", "ADMIN")
+
+                        // корзина (позже) — для CUSTOMER и GUEST
+                        //.requestMatchers("/cart/**").hasAnyRole("CUSTOMER", "GUEST")
+
+                        // всё остальное по умолчанию требует авторизации
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -31,11 +40,7 @@ public class SpringSecurityConfig {
                         .permitAll()
                         .defaultSuccessUrl("/", true)
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/auth/login?logout")
-                        .permitAll()
-                );
+                .logout(logout -> logout.permitAll());
 
         return http.build();
     }

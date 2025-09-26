@@ -1,7 +1,12 @@
 package ua.mem4ik.eshop.src.controler;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.mem4ik.eshop.src.domain.User;
+import ua.mem4ik.eshop.src.service.GuestService;
 import ua.mem4ik.eshop.src.service.UserService;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -22,17 +29,31 @@ import java.util.stream.Collectors;
 public class AuthController {
         @Autowired
         UserService userService;
+        @Autowired
+        GuestService guestService;
         @GetMapping("/login")
         public String login() {
             return "login";
         }
-
         @GetMapping("/registration")
         public String registration(Model model) {
-            model.addAttribute("user", new User()); // иначе будет ошибка в шаблоне
+            model.addAttribute("user", new User());
             return "registration";
         }
 
+        @GetMapping("/guest")
+        public String guestLogin(HttpServletResponse response) {
+            String guestToken = guestService.generateGuestToken();
+
+            ResponseCookie cookie = ResponseCookie.from("GUEST_TOKEN", guestToken)
+                    .httpOnly(true)
+                    .path("/")
+                    .maxAge(Duration.ofDays(1))
+                    .build();
+            response.addHeader("Set-Cookie", cookie.toString());
+
+            return "redirect:/";
+        }
         @PostMapping("/registration")
         public String addUser(@Valid User user,
                               BindingResult bindingResult,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Eshop</title>
@@ -26,6 +26,8 @@
     </div>
 </div>
 
-<a class="btn" href="/create-item">Создать товар</a>
+<a class="btn" href="/create-item" sec:authorize="hasAnyRole('CUSTOMER','ADMIN')">
+    Создать товар
+</a>
 </body>
 </html>

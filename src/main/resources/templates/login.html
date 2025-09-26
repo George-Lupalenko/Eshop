@@ -22,8 +22,17 @@
   <button type="submit">Войти</button>
 </form>
 
+<!-- сообщение об активации/ошибке -->
 <div th:if="${message}" th:text="${message}" style="color:green"></div>
 
 <p>Нет аккаунта? <a th:href="@{/auth/registration}">Зарегистрироваться</a></p>
+
+<hr>
+
+<!-- 🔹 кнопка для входа как гость -->
+<form th:action="@{/auth/guest}" method="get">
+  <button type="submit">Войти как гость</button>
+</form>
+
 </body>
 </html>
