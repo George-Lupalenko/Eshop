@@ -1,20 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title th:text="${item.title}">Товар</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .item-container { max-width: 800px; margin: 0 auto; }
-        .item-images img { max-width: 200px; margin: 5px; border-radius: 8px; }
-        .item-title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-        .item-description { margin-top: 15px; font-size: 16px; }
-        .item-price { color: green; font-size: 18px; font-weight: bold; margin-top: 10px; }
-        .back-link { display: block; margin-top: 20px; }
-        .order-form { margin-top: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
-        .order-form input, .order-form textarea { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 5px; border: 1px solid #aaa; }
-        .order-form button { padding: 10px 20px; background-color: #65af4c; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/ItemPage.css}">
 </head>
 <body>
 <div class="item-container">
@@ -29,25 +18,25 @@
     </div>
 
     <div class="item-price">
-        Цена: <span th:text="${item.price}">0.00</span> $
+        Цена: <span th:text="${item.price}">0.00</span> ₽
     </div>
 
     <h3>Заказать этот товар</h3>
     <form th:action="@{'/eshop/order/' + ${item.id}}" method="post" class="order-form">
-        <label>Ваше имя:</label><br>
-        <input type="text" name="buyerName" required><br><br>
+        <label>Ваше имя:</label>
+        <input type="text" name="buyerName" required>
 
-        <label>Ваша почта:</label><br>
-        <input type="email" name="buyerEmail" required><br><br>
+        <label>Ваша почта:</label>
+        <input type="email" name="buyerEmail" required>
 
-        <label>Сообщение:</label><br>
-        <textarea name="buyerMessage" rows="4"></textarea><br><br>
+        <label>Сообщение:</label>
+        <textarea name="buyerMessage" rows="4"></textarea>
 
         <button type="submit">Отправить заказ</button>
     </form>
 
-    <div th:if="${success}" style="color: green;" th:text="${success}"></div>
-    <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+    <div th:if="${success}" class="success-msg" th:text="${success}"></div>
+    <div th:if="${error}" class="error-msg" th:text="${error}"></div>
 
     <a href="/" class="back-link">⬅ Вернуться на главную</a>
 </div>

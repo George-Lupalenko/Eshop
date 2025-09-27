@@ -1,0 +1,11 @@
+<header th:fragment="siteHeader" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <div class="header-container">
+    <h1>Eshop</h1>
+    <nav>
+      <a href="/">Главная</a>
+      <a href="/create-item" sec:authorize="hasRole('ADMIN')">Добавить товар</a>
+      <a href="/logout" sec:authorize="isAuthenticated()">Выйти</a>
+      <a href="/login" sec:authorize="isAnonymous()">Войти</a>
+    </nav>
+  </div>
+</header>

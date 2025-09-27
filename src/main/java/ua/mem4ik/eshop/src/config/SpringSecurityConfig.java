@@ -21,6 +21,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // страница входа и регистрация доступны всем
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 
                         // просмотр товаров доступен всем (и гостям тоже)
                         .requestMatchers("/products", "/products/**" , "/").permitAll()

@@ -1,0 +1,134 @@
+/* ====== Базовые стили ====== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background: #F3F4F6; /* светлый фон */
+    color: #333;
+}
+
+/* ====== Контейнер товара ====== */
+.item-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ====== Заголовок товара ====== */
+.item-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1E40AF; /* тёмно-синий */
+    margin-bottom: 15px;
+}
+
+/* ====== Галерея изображений ====== */
+.item-images {
+    margin: 15px 0;
+}
+.item-images img {
+    max-width: 220px;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    transition: transform 0.2s;
+}
+.item-images img:hover {
+    transform: scale(1.05);
+}
+
+/* ====== Описание ====== */
+.item-description {
+    margin-top: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+}
+
+/* ====== Цена ====== */
+.item-price {
+    color: #2563EB; /* ярко-синий акцент */
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* ====== Форма заказа ====== */
+.order-form {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #CBD5E1;
+    border-radius: 10px;
+    background: #F9FAFB;
+}
+
+.order-form label {
+    font-weight: bold;
+    color: #2563EB;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.order-form input,
+.order-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #CBD5E1;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.order-form input:focus,
+.order-form textarea:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* ====== Кнопка отправки ====== */
+.order-form button {
+    padding: 12px 20px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.order-form button:hover {
+    background-color: #1E40AF;
+    transform: scale(1.02);
+}
+
+/* ====== Сообщения ====== */
+.success-msg {
+    color: #10B981; /* зелёный успех */
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.error-msg {
+    color: #DC2626; /* красный для ошибок */
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* ====== Ссылка назад ====== */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #2563EB;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #1E40AF;
+}
