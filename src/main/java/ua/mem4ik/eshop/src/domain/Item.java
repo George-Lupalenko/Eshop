@@ -21,7 +21,7 @@ public class Item {
     private String title = "No Title";
     @NotBlank(message = "Enter description or we will set a default one")
     private String description = "No Description";
-    @NotBlank(message = "Add 1 image as well")
+//    @NotBlank(message = "Add 1 image as well")
     private String image ;
 
     private Double price;
