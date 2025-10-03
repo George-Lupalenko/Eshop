@@ -19,12 +19,15 @@
 
     <div class="items">
         <div th:each="item : ${items}" class="item-card">
+            <img th:src="@{${item.imagePath}}" alt="Greeting">
             <h3 th:text="${item.title}">Название</h3>
-            <p class="price" th:text="${item.price + ' ₽'}">Цена</p>
+            <p class="price" th:text="${item.price + ' $'}">Цена</p>
             <p class="category" th:text="${item.category}">Категория</p>
+
             <a class="btn" th:href="@{'/item/' + ${item.id}}">Подробнее</a>
         </div>
     </div>
+
 
     <a class="btn create-btn" href="/create-item" sec:authorize="hasAnyRole('CUSTOMER','ADMIN')">
         Создать товар

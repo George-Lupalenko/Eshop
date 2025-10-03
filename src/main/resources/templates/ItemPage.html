@@ -10,7 +10,7 @@
     <div class="item-title" th:text="${item.title}">Название товара</div>
 
     <div class="item-images">
-        <img th:src="${item.image}" alt="Фото товара">
+        <img th:src="${item.imagePath}" alt="Greeting">
     </div>
 
     <div class="item-description" th:text="${item.description}">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="item-price">
-        Цена: <span th:text="${item.price}">0.00</span> ₽
+        Цена: <span th:text="${item.price}">0.00</span> $
     </div>
 
     <h3>Заказать этот товар</h3>

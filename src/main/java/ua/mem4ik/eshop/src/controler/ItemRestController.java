@@ -25,6 +25,7 @@ public class ItemRestController {
     public Item createItem(@RequestBody Item item) {
         return itemService.addItem(item);
     }
+
     @GetMapping("/item/{id}")
     public String getItem(@PathVariable Long id, Model model) {
         Item item = itemService.findById(id);

@@ -22,7 +22,7 @@ public class Item {
     @NotBlank(message = "Enter description or we will set a default one")
     private String description = "No Description";
 //    @NotBlank(message = "Add 1 image as well")
-    private String image ;
+    private String imagePath ;
 
     private Double price;
     @ManyToOne
