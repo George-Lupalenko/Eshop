@@ -10,7 +10,7 @@
     <div class="item-title" th:text="${item.title}">Название товара</div>
 
     <div class="item-images">
-        <img th:src="${item.imagePath}" alt="Greeting">
+        <img th:src="@{'/static' + ${item.imagePath}}" alt="Image">
     </div>
 
     <div class="item-description" th:text="${item.description}">
